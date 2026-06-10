@@ -162,12 +162,15 @@ $tables = [
         `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
     
-    "login_logs" => "CREATE TABLE `login_logs` (
+    "login_logs" => "CREATE TABLE IF NOT EXISTS `login_logs` (
         `id` INT AUTO_INCREMENT PRIMARY KEY,
-        `user_id` INT NOT NULL,
-        `login_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
-        `ip_address` VARCHAR(50),
-        `user_agent` TEXT
+        `user_type` VARCHAR(50) NOT NULL,
+        `username` VARCHAR(100) NOT NULL,
+        `full_name` VARCHAR(100) NOT NULL,
+        `ip_address` VARCHAR(50) DEFAULT 'Unknown',
+        `user_agent` VARCHAR(255) DEFAULT 'Unknown',
+        `login_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        `status` VARCHAR(20) DEFAULT 'Thành công'
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci",
     
     "menu_categories" => "CREATE TABLE `menu_categories` (
