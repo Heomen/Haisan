@@ -37,6 +37,7 @@ echo '<p style="color:green">✅ Đã xóa tất cả các bảng cũ.</p>';
 
 // ============= BƯỚC 2: Tạo lại tất cả các bảng từ schema Local =============
 echo '<h3>Bước 2: Tạo các bảng mới với schema đồng bộ</h3>';
+$db->exec('SET FOREIGN_KEY_CHECKS = 0');
 $sql_roles = 'CREATE TABLE `roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -302,8 +303,12 @@ try {
     echo '<p style="color:red">❌ Tạo bảng <b>order_items</b> thất bại: ' . htmlspecialchars($e->getMessage()) . '</p>';
 }
 
+$db->exec('SET FOREIGN_KEY_CHECKS = 1');
+echo '<p style="color:green">✅ Hoàn tất tạo cấu trúc bảng.</p>';
+
 // ============= BƯỚC 3: Đồng bộ toàn bộ dữ liệu từ các bảng local =============
 echo '<h3>Bước 3: Đồng bộ dữ liệu</h3>';
+$db->exec('SET FOREIGN_KEY_CHECKS = 0');
 // Dữ liệu cho bảng roles
 try {
     $stmt = $db->prepare('INSERT INTO `roles` (`id`, `name`, `description`) VALUES (:id, :name, :description)');
@@ -1163,6 +1168,7 @@ try {
     echo '<p style="color:red">❌ Lỗi đồng bộ dữ liệu bảng <b>order_items</b>: ' . htmlspecialchars($e->getMessage()) . '</p>';
 }
 
+$db->exec('SET FOREIGN_KEY_CHECKS = 1');
 echo '<br><div style="padding:15px; background-color:#e6ffe6; border:1px solid green; border-radius:5px;">';
 echo '🎉 <b>Hoàn tất đồng bộ dữ liệu quản lý!</b> <a href="index.php"><b>→ Về trang chủ</b></a>';
 echo '</div>';
