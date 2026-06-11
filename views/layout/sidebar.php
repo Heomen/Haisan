@@ -5,7 +5,8 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 $dashboard_active = ($current_controller == 'dashboard') ? 'active' : '';
 $menu_active = ($current_controller == 'menu' && $action != 'favorites') ? 'active' : '';
 $favorites_active = ($current_controller == 'menu' && $action == 'favorites') ? 'active' : '';
-$reservation_active = ($current_controller == 'reservation') ? 'active' : '';
+$reservation_active = ($current_controller == 'reservation' && $action == 'index') ? 'active' : '';
+$bills_active = ($current_controller == 'reservation' && $action == 'bills') ? 'active' : '';
 $review_active = ($current_controller == 'review') ? 'active' : '';
 $employee_active = ($current_controller == 'employee') ? 'active' : '';
 $department_active = ($current_controller == 'department') ? 'active' : '';
@@ -26,6 +27,9 @@ $display_title = $controller_titles[$current_controller] ?? ucfirst($current_con
 if ($current_controller == 'menu' && $action == 'favorites') {
     $display_title = 'Sản phẩm ưa chuộng';
 }
+if ($current_controller == 'reservation' && $action == 'bills') {
+    $display_title = 'Hóa đơn đặt bàn';
+}
 
 $role_id = $_SESSION['role_id'] ?? 3;
 $full_name = $_SESSION['full_name'] ?? 'User';
@@ -33,8 +37,11 @@ $role_name = $_SESSION['role_name'] ?? 'Role';
 $avatar_initial = strtoupper(substr($full_name, 0, 1));
 
 echo <<<HTML
+<!-- Sidebar Overlay for Mobile -->
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="toggleAdminSidebar()"></div>
+
 <!-- Sidebar -->
-<nav class="sidebar">
+<nav class="sidebar" id="adminSidebar">
     <div class="sidebar-header">
         <h3><i class="fa-solid fa-fish-fins me-2"></i>Haisan</h3>
     </div>
@@ -58,6 +65,11 @@ echo <<<HTML
         <li>
             <a href="index.php?controller=reservation&action=index" class="{$reservation_active}">
                 <i class="fa-solid fa-calendar-check"></i> Quản lý Đặt bàn
+            </a>
+        </li>
+        <li>
+            <a href="index.php?controller=reservation&action=bills" class="{$bills_active}">
+                <i class="fa-solid fa-file-invoice-dollar"></i> Hóa đơn đặt bàn
             </a>
         </li>
         <li>
@@ -96,7 +108,10 @@ echo <<<HTML
 
 <!-- Top Navbar -->
 <header class="top-navbar">
-    <div class="navbar-left">
+    <div class="navbar-left d-flex align-items-center gap-3">
+        <button class="admin-menu-toggle" onclick="toggleAdminSidebar()" aria-label="Toggle Menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         <h4 class="m-0 text-dark fw-bold">{$display_title}</h4>
     </div>
     <div class="navbar-right">
@@ -116,5 +131,25 @@ echo <<<HTML
         </div>
     </div>
 </header>
+
+<script>
+    function toggleAdminSidebar() {
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        sidebar.classList.toggle('show');
+        overlay.classList.toggle('show');
+    }
+    // Close sidebar when clicking a menu link on mobile
+    document.querySelectorAll('.sidebar-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 991) {
+                const sidebar = document.getElementById('adminSidebar');
+                const overlay = document.getElementById('sidebarOverlay');
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+        });
+    });
+</script>
 HTML;
 ?>
