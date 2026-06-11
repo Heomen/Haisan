@@ -42,7 +42,7 @@ echo <<<HTML
             background-color: #0073C2;
             padding: 10px 0;
             position: relative;
-            z-index: 10;
+            z-index: 100;
         }
         .main-header .nav-link {
             color: white !important;
@@ -71,6 +71,56 @@ echo <<<HTML
             font-size: 32px;
         }
         
+        /* Mobile Hamburger Button */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.2s;
+        }
+        .mobile-menu-toggle:hover { color: #ffc107; }
+        
+        /* Mobile Header Layout */
+        .header-desktop-row { display: flex; }
+        .header-mobile-bar {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .mobile-nav-collapse {
+            display: none;
+            background: #005fa3;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding: 15px 0;
+            animation: mobileNavSlideDown 0.3s ease-out;
+        }
+        .mobile-nav-collapse.show { display: block; }
+        @keyframes mobileNavSlideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .mobile-nav-collapse .nav {
+            flex-direction: column;
+            align-items: center;
+        }
+        .mobile-nav-collapse .nav-link {
+            padding: 12px 20px !important;
+            font-size: 15px;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .mobile-nav-collapse .nav-link:last-child { border-bottom: none; }
+        .mobile-nav-collapse .auth-buttons {
+            justify-content: center;
+            padding: 15px 20px 5px;
+        }
+
         /* Auth Modal Glassmorphism Styling */
         .auth-modal-overlay {
             position: fixed;
@@ -222,12 +272,33 @@ echo <<<HTML
         .search-container .btn-search:hover {
             color: #ffc107;
         }
+
+        /* ======================== MOBILE RESPONSIVE ======================== */
+        @media (max-width: 991px) {
+            .header-desktop-row { display: none !important; }
+            .header-mobile-bar { display: flex !important; }
+            .mobile-menu-toggle { display: inline-block; }
+        }
+        
+        @media (max-width: 768px) {
+            .auth-modal-box {
+                margin: 15px;
+                padding: 25px 20px;
+                border-radius: 15px;
+                max-width: 100%;
+            }
+            .auth-tabs { margin-bottom: 18px; }
+            .auth-tab { padding: 10px; font-size: 14px; }
+            .auth-modal-box .form-control { padding: 10px 15px; font-size: 13px; }
+            .btn-auth-submit { padding: 11px; font-size: 14px; }
+        }
     </style>
 </head>
 <body>
     <header class="main-header">
         <div class="container">
-            <div class="row align-items-center">
+            <!-- Desktop Navigation -->
+            <div class="row align-items-center header-desktop-row">
                 <div class="col-md-4">
                     <ul class="nav justify-content-end">
                         <li class="nav-item"><a href="#story" class="nav-link">CÂU CHUYỆN</a></li>
@@ -247,6 +318,27 @@ echo <<<HTML
                     </ul>
                     {$customer_auth_html}
                 </div>
+            </div>
+            <!-- Mobile Navigation -->
+            <div class="header-mobile-bar">
+                <a href="index.php" class="text-decoration-none logo-placeholder" style="font-size:20px;">
+                    <i class="fa-solid fa-shrimp"></i> SEAFOOD
+                </a>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+            <div id="mobileNavCollapse" class="mobile-nav-collapse">
+                <ul class="nav">
+                    <li class="nav-item"><a href="#story" class="nav-link" onclick="closeMobileMenu()">CÂU CHUYỆN</a></li>
+                    <li class="nav-item"><a href="#menu" class="nav-link" onclick="closeMobileMenu()">THỰC ĐƠN</a></li>
+                    <li class="nav-item"><a href="#locations" class="nav-link" onclick="closeMobileMenu()">ĐỊA ĐIỂM</a></li>
+                    <li class="nav-item"><a href="#offers" class="nav-link" onclick="closeMobileMenu()">ƯU ĐÃI</a></li>
+                    <li class="nav-item"><a href="#booking" class="nav-link" onclick="closeMobileMenu()">ĐẶT BÀN</a></li>
+                    <li class="nav-item"><a href="#reviews" class="nav-link" onclick="closeMobileMenu()">ĐÁNH GIÁ</a></li>
+                    <li class="nav-item"><a href="#" onclick="toggleChat(); closeMobileMenu(); return false;" class="nav-link" style="color: #ffc107 !important;"><i class="fa-solid fa-robot"></i> AI TƯ VẤN</a></li>
+                </ul>
+                {$customer_auth_html}
             </div>
         </div>
     </header>
@@ -287,8 +379,8 @@ echo <<<HTML
                     <input type="text" name="full_name" class="form-control" required placeholder="Nguyễn Văn A">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label small fw-bold text-muted">Số điện thoại *</label>
-                    <input type="tel" name="phone" class="form-control" required placeholder="Nhập số điện thoại">
+                    <label class="form-label small fw-bold text-muted">Số điện thoại * <span style="font-weight:400;color:#94a3b8;">(10 chữ số)</span></label>
+                    <input type="tel" name="phone" class="form-control" required placeholder="Nhập số điện thoại (10 số)" pattern="[0-9]{10}" maxlength="10" minlength="10">
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold text-muted">Tên đăng nhập *</label>
@@ -349,6 +441,12 @@ echo <<<HTML
             const submitBtn = form.querySelector('.btn-auth-submit');
             
             if (action === 'register') {
+                const phone = formData.get('phone');
+                if (!/^[0-9]{10}$/.test(phone)) {
+                    errorText.innerText = 'Số điện thoại phải đủ 10 chữ số (chỉ chứa số).';
+                    errorContainer.style.display = 'flex';
+                    return;
+                }
                 const password = formData.get('password');
                 if (password.length < 6) {
                     errorText.innerText = 'Mật khẩu phải có tối thiểu 6 ký tự.';
@@ -492,6 +590,25 @@ echo <<<HTML
                 }
             }
         });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobileNavCollapse');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (nav.classList.contains('show')) {
+                nav.classList.remove('show');
+                icon.className = 'fa-solid fa-bars';
+            } else {
+                nav.classList.add('show');
+                icon.className = 'fa-solid fa-xmark';
+            }
+        }
+        function closeMobileMenu() {
+            const nav = document.getElementById('mobileNavCollapse');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (nav) { nav.classList.remove('show'); }
+            if (icon) { icon.className = 'fa-solid fa-bars'; }
+        }
     </script>
 HTML;
 ?>

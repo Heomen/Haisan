@@ -415,6 +415,178 @@ echo <<<CSS
         font-size: 15px;
         margin-bottom: 20px;
     }
+
+    /* ======================== MOBILE RESPONSIVE - ALL SECTIONS ======================== */
+    
+    /* ---- Tablet (max 991px) ---- */
+    @media (max-width: 991px) {
+        .main-banner { height: 400px; }
+        .hero-section { padding: 40px 0; min-height: auto; }
+        .story-title { font-size: 28px; margin-bottom: 20px; }
+        .story-content { font-size: 15px; }
+        
+        .offers-main-title { font-size: 30px; }
+        .offer-image { min-height: 280px; }
+        .offer-details { padding: 30px; }
+        .offer-details-title { font-size: 20px; }
+        .offer-details-text { font-size: 15px; }
+        
+        .booking-form-box { padding: 35px 30px; max-width: 100%; }
+        .booking-title { font-size: 26px; }
+        
+        .footer-title { font-size: 26px; }
+        .location-img-wrapper { height: 180px; }
+        
+        .dish-modal-content { padding: 30px 20px; }
+        .dish-modal-title { font-size: 22px; margin-bottom: 25px; }
+    }
+    
+    /* ---- Mobile (max 768px) ---- */
+    @media (max-width: 768px) {
+        .main-banner { height: 280px; }
+        .main-banner .carousel-control-prev,
+        .main-banner .carousel-control-next { display: none; }
+        
+        .hero-section { padding: 30px 0; }
+        .story-title { font-size: 24px; margin-bottom: 15px; text-align: center; }
+        .story-content { font-size: 14px; line-height: 1.7; }
+        .story-content p { margin-bottom: 15px; }
+        .hero-section .col-lg-6 { margin-bottom: 20px; }
+        .hero-section .col-lg-6.pe-lg-4 { padding-right: calc(var(--bs-gutter-x) * .5) !important; }
+        .hero-section .col-lg-6.ps-lg-4 { padding-left: calc(var(--bs-gutter-x) * .5) !important; margin-top: 0 !important; }
+        .hero-section img { margin-bottom: 15px; border-radius: 10px; }
+        .btn-detail { padding: 8px 25px; font-size: 12px; margin: 0 auto; display: inline-flex; }
+        
+        /* Menu Section */
+        .menu-section { padding-top: 30px !important; padding-bottom: 30px !important; }
+        .menu-section .story-title { font-size: 22px; margin-bottom: 15px !important; }
+        .menu-card img { height: 160px; }
+        .menu-info { padding: 15px; }
+        .menu-name { font-size: 16px; margin-bottom: 8px; }
+        .menu-price { font-size: 15px; }
+        .status-badge { padding: 4px 10px; font-size: 10px; top: 10px; right: 10px; }
+        .favorite-badge { padding: 4px 10px; font-size: 10px; top: 10px; left: 10px; }
+        
+        /* Menu Search */
+        .menu-search-container { padding: 6px 15px; }
+        .menu-search-container input { font-size: 14px !important; }
+        
+        /* Favorite Dishes */
+        .favorite-dishes-section h3 { font-size: 20px !important; }
+        
+        /* Offers Section */
+        .offers-section { padding: 40px 0; }
+        .offers-main-title { font-size: 24px; margin-bottom: 10px; }
+        .offers-header { margin-bottom: 30px; }
+        .offer-banner-row { flex-direction: column; border-radius: 15px; margin-bottom: 30px; }
+        .offer-image { min-height: 220px; flex: none; }
+        .offer-details { padding: 25px 20px; }
+        .offer-details-title { font-size: 18px; line-height: 1.4; margin-bottom: 15px; }
+        .offer-details-text { font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+        .offer-badge { padding: 8px 18px; font-size: 12px; }
+        
+        /* Booking Section */
+        .booking-section { padding: 40px 0; }
+        .booking-form-box { padding: 25px 20px; border-radius: 15px; }
+        .booking-title-row { flex-direction: column; gap: 15px; margin-bottom: 25px; align-items: flex-start; }
+        .booking-title { font-size: 24px; }
+        .booking-form-box .form-control,
+        .booking-form-box .form-select { padding: 12px 15px; margin-bottom: 18px; font-size: 14px; }
+        .booking-form-box .choices__inner { min-height: 48px; padding: 8px 15px; }
+        .btn-submit-booking { padding: 13px 30px; font-size: 14px; }
+        .booking-form-box .row .col-md-6 { margin-bottom: 0; }
+        
+        /* Reviews Section */
+        .reviews-section { padding: 40px 0; }
+        .reviews-section .story-title { font-size: 22px; margin-bottom: 25px !important; }
+        .review-summary-card { padding: 20px; margin-bottom: 15px; }
+        .review-average-num { font-size: 40px; }
+        .review-list-container { max-height: 400px; padding-right: 5px; }
+        .review-card-item { padding: 18px; margin-bottom: 15px; }
+        .review-user-avatar { width: 38px; height: 38px; font-size: 14px; }
+        .review-user-meta h5 { font-size: 14px; }
+        .review-content { font-size: 13px; }
+        .review-form-card { padding: 25px 20px; margin-top: 20px; }
+        .review-form-title { font-size: 18px; margin-bottom: 20px; }
+        .review-auth-prompt { padding: 30px 20px; }
+        .interactive-star-icon { font-size: 24px; }
+        
+        /* Dish Modal */
+        .dish-modal-content { width: 95%; padding: 25px 18px; border-radius: 18px; }
+        .dish-modal-title { font-size: 20px; margin-bottom: 20px; }
+        .dishes-grid { grid-template-columns: 1fr; gap: 20px; }
+        .dish-img-placeholder { height: 180px; }
+        .dish-modal-close { top: 12px; right: 16px; font-size: 24px; }
+        
+        /* Footer */
+        .footer-locations { padding: 60px 0 30px; }
+        .footer-locations::before { height: 30px; }
+        .footer-title { font-size: 22px; margin-bottom: 25px; }
+        .location-img-wrapper { height: 160px; }
+        .location-name { font-size: 16px; }
+        .location-address { font-size: 13px; }
+        .contact-row { flex-direction: column; gap: 10px; }
+        .hotline-text { font-size: 16px; padding: 8px 20px; }
+        
+        /* Floating Buttons */
+        .floating-actions { right: 10px; }
+        .floating-btn { width: 42px; height: 42px; font-size: 20px; }
+        .btn-book { font-size: 12px; padding: 8px 12px; }
+        
+        /* Custom Alert */
+        .custom-alert-box { padding: 30px 25px; border-radius: 15px; }
+        .custom-alert-box h4 { font-size: 18px; }
+        .custom-alert-box p { font-size: 14px; }
+    }
+    
+    /* ---- Small Phone (max 480px) ---- */
+    @media (max-width: 480px) {
+        .main-banner { height: 200px; }
+        .hero-section { padding: 25px 0; }
+        .story-title { font-size: 20px; }
+        .story-content { font-size: 13px; }
+        
+        .menu-card img { height: 140px; }
+        .menu-info { padding: 12px 10px; }
+        .menu-name { font-size: 14px; }
+        .menu-price { font-size: 14px; }
+        
+        .offers-main-title { font-size: 20px; }
+        .offer-image { min-height: 180px; }
+        .offer-details { padding: 20px 15px; }
+        .offer-details-title { font-size: 16px; }
+        .offer-details-text { font-size: 13px; }
+        .offer-badge { padding: 6px 14px; font-size: 11px; }
+        
+        .booking-form-box { padding: 20px 15px; }
+        .booking-title { font-size: 20px; }
+        .booking-form-box .form-control,
+        .booking-form-box .form-select { padding: 10px 12px; font-size: 13px; margin-bottom: 15px; }
+        .btn-submit-booking { padding: 12px 25px; font-size: 13px; }
+        .lang-toggle span { padding: 5px 14px; font-size: 12px; }
+        
+        .reviews-section .story-title { font-size: 18px; }
+        .review-summary-card { padding: 15px; }
+        .review-average-num { font-size: 36px; }
+        .review-form-card { padding: 20px 15px; }
+        
+        .footer-title { font-size: 18px; margin-bottom: 20px; }
+        .location-img-wrapper { height: 140px; }
+        .location-info { padding: 15px; }
+        .location-name { font-size: 14px; }
+        .location-address { font-size: 12px; }
+        .hotline-text { font-size: 14px; }
+        
+        .dish-modal-content { padding: 20px 15px; }
+        .dish-modal-title { font-size: 18px; }
+        .dish-img-placeholder { height: 150px; }
+        .dish-name { font-size: 15px; }
+        
+        .custom-alert-box { padding: 25px 18px; }
+        .custom-alert-box h4 { font-size: 16px; margin-bottom: 15px; }
+        .custom-alert-box p { font-size: 13px; margin-bottom: 20px; }
+        .btn-close-alert { padding: 10px 30px; font-size: 14px; }
+    }
 </style>
 CSS;
 
@@ -721,10 +893,10 @@ if (!empty($menu_items)) {
 if (!empty($favDishesList)) {
     echo '<div id="favorite-dishes-container" class="favorite-dishes-section mb-5 w-100">';
     echo '  <h3 class="text-center mb-4" style="font-family: \'Playfair Display\', serif; font-weight: 700; color: #ef4444; letter-spacing: 1px;"><i class="fa-solid fa-heart me-2"></i>MÓN NGON ƯA CHUỘNG</h3>';
-    echo '  <div class="row g-4 justify-content-center">';
+    echo '  <div class="row g-3 g-md-4 justify-content-center">';
     foreach ($favDishesList as $fav) {
         echo <<<FAV
-        <div class="col-md-4 col-lg-3" style="cursor:pointer;" onclick="showDishModal('{$fav['parent_name']}', '{$fav['dish1']}', '{$fav['dish2']}', '{$fav['dishImg1']}', '{$fav['dishImg2']}', '{$fav['dishPrice1']}', '{$fav['dishPrice2']}')">
+        <div class="col-6 col-md-4 col-lg-3" style="cursor:pointer;" onclick="showDishModal('{$fav['parent_name']}', '{$fav['dish1']}', '{$fav['dish2']}', '{$fav['dishImg1']}', '{$fav['dishImg2']}', '{$fav['dishPrice1']}', '{$fav['dishPrice2']}')">
             <div class="menu-card" {$fav['card_opacity']}>
                 <span class="status-badge" style="background:#ef4444;color:#fff;"><i class="fa-solid fa-heart me-1"></i>Ưa thích</span>
                 <img src="{$fav['dish_image']}" alt="{$fav['dish_name']}" style="width:100%;height:200px;object-fit:cover;">
@@ -743,7 +915,7 @@ FAV;
 }
 
 // 2. Render lưới thực đơn hải sản chính
-echo '<div class="row g-4">';
+echo '<div class="row g-3 g-md-4">';
 
 if (!empty($menu_items)) {
     foreach ($menu_items as $item) {
@@ -819,7 +991,7 @@ if (!empty($menu_items)) {
         $d2IsFav = (isset($item['dish_2_is_favorite']) && $item['dish_2_is_favorite'] == 1) ? 1 : 0;
 
         echo <<<CARD
-        <div class="col-md-4 col-lg-3 seafood-item" data-name="{$name}" data-dishes="{$dish1}|{$dish2}" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')" style="cursor:pointer;">
+        <div class="col-6 col-md-4 col-lg-3 seafood-item" data-name="{$name}" data-dishes="{$dish1}|{$dish2}" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')" style="cursor:pointer;">
             <div class="menu-card" {$cardOpacity}>
                 <span class="status-badge {$statusClass}">{$statusText}</span>
                 <img src="{$img}" alt="{$name}">
@@ -835,7 +1007,7 @@ CARD;
         if (!empty($dish1)) {
             $d1Img = !empty($dishImg1) ? $dishImg1 : 'https://via.placeholder.com/300x200?text=Mon+Che+Bien';
             echo <<<DISH1
-        <div class="col-md-4 col-lg-3 seafood-dish-item" data-dish-name="{$dish1}" data-is-favorite="{$d1IsFav}" style="display:none;cursor:pointer;" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')">
+        <div class="col-6 col-md-4 col-lg-3 seafood-dish-item" data-dish-name="{$dish1}" data-is-favorite="{$d1IsFav}" style="display:none;cursor:pointer;" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')">
             <div class="menu-card" {$cardOpacity}>
                 <span class="status-badge" style="background:#0073C2;color:#fff;">Chế biến</span>
                 <img src="{$d1Img}" alt="{$dish1}" style="width:100%;height:200px;object-fit:cover;">
@@ -852,7 +1024,7 @@ DISH1;
         if (!empty($dish2)) {
             $d2Img = !empty($dishImg2) ? $dishImg2 : 'https://via.placeholder.com/300x200?text=Mon+Che+Bien';
             echo <<<DISH2
-        <div class="col-md-4 col-lg-3 seafood-dish-item" data-dish-name="{$dish2}" data-is-favorite="{$d2IsFav}" style="display:none;cursor:pointer;" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')">
+        <div class="col-6 col-md-4 col-lg-3 seafood-dish-item" data-dish-name="{$dish2}" data-is-favorite="{$d2IsFav}" style="display:none;cursor:pointer;" onclick="showDishModal('{$name}', '{$dish1}', '{$dish2}', '{$dishImg1}', '{$dishImg2}', '{$dishPrice1}', '{$dishPrice2}')">
             <div class="menu-card" {$cardOpacity}>
                 <span class="status-badge" style="background:#0073C2;color:#fff;">Chế biến</span>
                 <img src="{$d2Img}" alt="{$dish2}" style="width:100%;height:200px;object-fit:cover;">
@@ -1047,46 +1219,56 @@ echo <<<HTML
                 </select>
                 <select name="pre_order[]" id="field-pre-order" multiple>
                     <optgroup label="Mực Ống">
-                        <option value="Mực nhồi thịt">Mực nhồi thịt</option>
-                        <option value="Mực xào dứa">Mực xào dứa</option>
+                        <option value="Mực nhồi thịt">Mực nhồi thịt - 180.000đ</option>
+                        <option value="Mực xào dứa">Mực xào dứa - 150.000đ</option>
                     </optgroup>
                     <optgroup label="Bào Ngư">
-                        <option value="Cháo bào ngư">Cháo bào ngư</option>
-                        <option value="Bào ngư sống">Bào ngư sống</option>
+                        <option value="Cháo bào ngư">Cháo bào ngư - 120.000đ</option>
+                        <option value="Bào ngư sống">Bào ngư sống - 250.000đ</option>
                     </optgroup>
                     <optgroup label="Bề Bề">
-                        <option value="Bề bề hấp">Bề bề hấp</option>
-                        <option value="Bề bề rang muối">Bề bề rang muối</option>
+                        <option value="Bề bề hấp">Bề bề hấp - 350.000đ</option>
+                        <option value="Bề bề rang muối">Bề bề rang muối - 380.000đ</option>
                     </optgroup>
                     <optgroup label="Cá Song">
-                        <option value="Cá song chiên">Cá song chiên</option>
-                        <option value="Cá song kho">Cá song kho</option>
+                        <option value="Cá song chiên">Cá song chiên - 450.000đ</option>
+                        <option value="Cá song kho">Cá song kho - 420.000đ</option>
                     </optgroup>
                     <optgroup label="Cua Cà Mau">
-                        <option value="Cua rang muối">Cua rang muối</option>
-                        <option value="Cua sốt me">Cua sốt me</option>
+                        <option value="Cua rang muối">Cua rang muối - 480.000đ</option>
+                        <option value="Cua sốt me">Cua sốt me - 480.000đ</option>
                     </optgroup>
                     <optgroup label="Cua Hoàng Đế">
-                        <option value="Cua hoàng đế hấp">Cua hoàng đế hấp</option>
-                        <option value="Càng cua hấp">Càng cua hấp</option>
+                        <option value="Cua hoàng đế hấp">Cua hoàng đế hấp - 1.200.000đ</option>
+                        <option value="Càng cua hấp">Càng cua hấp - 600.000đ</option>
                     </optgroup>
                     <optgroup label="Cá Bơn">
-                        <option value="Cá bơn chiên">Cá bơn chiên</option>
-                        <option value="Cá bơn nướng">Cá bơn nướng</option>
+                        <option value="Cá bơn chiên">Cá bơn chiên - 390.000đ</option>
+                        <option value="Cá bơn nướng">Cá bơn nướng - 420.000đ</option>
                     </optgroup>
                     <optgroup label="Tu Hài">
-                        <option value="Tu hài hấp xả ớt">Tu hài hấp xả ớt</option>
-                        <option value="Tu hài nướng mỡ hành">Tu hài nướng mỡ hành</option>
+                        <option value="Tu hài hấp xả ớt">Tu hài hấp xả ớt - 280.000đ</option>
+                        <option value="Tu hài nướng mỡ hành">Tu hài nướng mỡ hành - 290.000đ</option>
                     </optgroup>
                     <optgroup label="Tôm Hùm">
-                        <option value="Tôm hùm hấp">Tôm hùm hấp</option>
-                        <option value="Tôm hùm sốt">Tôm hùm sốt</option>
+                        <option value="Tôm hùm hấp">Tôm hùm hấp - 850.000đ</option>
+                        <option value="Tôm hùm sốt">Tôm hùm sốt - 890.000đ</option>
                     </optgroup>
                     <optgroup label="Ốc Hương">
-                        <option value="Ốc luộc">Ốc luộc</option>
-                        <option value="Ốc trứng muối">Ốc trứng muối</option>
+                        <option value="Ốc luộc">Ốc luộc - 90.000đ</option>
+                        <option value="Ốc trứng muối">Ốc trứng muối - 120.000đ</option>
                     </optgroup>
                 </select>
+                <div id="booking-total-container" style="display:none; margin-top:15px; margin-bottom:15px; background:linear-gradient(135deg,#f0f9ff,#e0f2fe); border:1px solid #bae6fd; border-radius:12px; padding:15px 20px; animation:fadeInTotal 0.3s ease-out;">
+                    <div style="font-weight:600; color:#0369a1; margin-bottom:8px; font-size:14px;">
+                        <i class="fa-solid fa-receipt me-2"></i>Chi tiết món đặt trước:
+                    </div>
+                    <div id="booking-total-details" style="font-size:13px; color:#475569; margin-bottom:10px;"></div>
+                    <div style="border-top:1px dashed #93c5fd; padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:700; color:#0c4a6e; font-size:15px;"><i class="fa-solid fa-calculator me-1"></i>Tổng thanh toán (dự kiến):</span>
+                        <span id="booking-total-amount" style="font-weight:700; color:#dc2626; font-size:18px;">0đ</span>
+                    </div>
+                </div>
                 <select name="offer" id="field-offer" class="form-select mb-3" onchange="toggleBirthday()">
                     <option value="none" selected>Không chọn ưu đãi</option>
                     <option value="offer1">Ưu đãi 1: Tháng 3 của nàng (Giảm 1tr/kg Cua King Crab)</option>
@@ -1130,6 +1312,18 @@ echo <<<HTML
 <script>
     const isCustomerLoggedIn = {$is_customer_logged_in_js};
     const inactiveDishes = {$inactiveDishesJson};
+    const dishPrices = {
+        'Mực nhồi thịt': 180000, 'Mực xào dứa': 150000,
+        'Cháo bào ngư': 120000, 'Bào ngư sống': 250000,
+        'Bề bề hấp': 350000, 'Bề bề rang muối': 380000,
+        'Cá song chiên': 450000, 'Cá song kho': 420000,
+        'Cua rang muối': 480000, 'Cua sốt me': 480000,
+        'Cua hoàng đế hấp': 1200000, 'Càng cua hấp': 600000,
+        'Cá bơn chiên': 390000, 'Cá bơn nướng': 420000,
+        'Tu hài hấp xả ớt': 280000, 'Tu hài nướng mỡ hành': 290000,
+        'Tôm hùm hấp': 850000, 'Tôm hùm sốt': 890000,
+        'Ốc luộc': 90000, 'Ốc trứng muối': 120000
+    };
     const langData = {
         vi: {
             title: 'Đặt bàn',
@@ -1366,6 +1560,31 @@ echo <<<HTML
         }
     }
 
+    function updateBookingTotal() {
+        const select = document.getElementById('field-pre-order');
+        const selectedOpts = Array.from(select.selectedOptions);
+        const container = document.getElementById('booking-total-container');
+        let total = 0;
+        let detailsHtml = '';
+
+        selectedOpts.forEach(function(opt) {
+            const name = opt.value;
+            const price = dishPrices[name] || 0;
+            total += price;
+            if (price > 0) {
+                detailsHtml += '<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dotted #e2e8f0;"><span>' + name + '</span><span style="font-weight:600;color:#0369a1;">' + price.toLocaleString('vi-VN') + 'đ</span></div>';
+            }
+        });
+
+        if (total > 0) {
+            container.style.display = 'block';
+            document.getElementById('booking-total-details').innerHTML = detailsHtml;
+            document.getElementById('booking-total-amount').innerText = total.toLocaleString('vi-VN') + 'đ';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+
     window.onload = function() {
         checkAutoOffer();
         
@@ -1382,6 +1601,11 @@ echo <<<HTML
             noChoicesText: 'Không có món ăn nào',
         });
         document.querySelector('.choices__input--cloned').placeholder = data.pre_order;
+
+        // Lắng nghe sự kiện thay đổi món đặt trước để cập nhật tổng tiền
+        const preOrderEl = document.getElementById('field-pre-order');
+        preOrderEl.addEventListener('addItem', updateBookingTotal);
+        preOrderEl.addEventListener('removeItem', updateBookingTotal);
         
         // Kiểm tra kết quả từ server
         const urlParams = new URLSearchParams(window.location.search);

@@ -81,6 +81,12 @@ class CustomerController {
                 exit();
             }
 
+            // Validate phone number: exactly 10 digits
+            if (!preg_match('/^[0-9]{10}$/', $phone)) {
+                echo json_encode(['status' => 'error', 'message' => 'Số điện thoại phải đủ 10 chữ số (chỉ chứa số).']);
+                exit();
+            }
+
             // Check if username exists
             if ($this->customer->usernameExists($username)) {
                 echo json_encode(['status' => 'error', 'message' => 'Tên đăng nhập này đã tồn tại trên hệ thống.']);
