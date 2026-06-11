@@ -1281,7 +1281,7 @@ echo <<<HTML
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="date" name="date" id="field-date" class="form-control" value="{$today}" required onchange="checkAutoOffer()">
+                        <input type="date" name="date" id="field-date" class="form-control" value="{$today}" min="{$today}" required onchange="checkAutoOffer()">
                     </div>
                     <div class="col-md-6">
                         <select name="time" id="field-time" class="form-select" required>
