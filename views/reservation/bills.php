@@ -124,12 +124,13 @@ echo <<<HTML
                     <thead class="bg-light">
                         <tr style="border-bottom: 2px solid #f1f5f9;">
                             <th class="px-4 py-3 border-0 text-muted" style="width: 10%">Mã HĐ</th>
-                            <th class="px-4 py-3 border-0 text-muted" style="width: 18%">Khách hàng</th>
+                            <th class="px-4 py-3 border-0 text-muted" style="width: 15%">Khách hàng</th>
                             <th class="px-4 py-3 border-0 text-muted" style="width: 12%">Số điện thoại</th>
                             <th class="px-4 py-3 border-0 text-muted" style="width: 18%">Thời gian đặt</th>
                             <th class="px-4 py-3 border-0 text-muted" style="width: 15%">Chi nhánh</th>
-                            <th class="px-4 py-3 border-0 text-muted" style="width: 12%">Trạng thái</th>
-                            <th class="px-4 py-3 border-0 text-muted text-end" style="width: 15%">Tổng tiền (Dự kiến)</th>
+                            <th class="px-4 py-3 border-0 text-muted" style="width: 10%">Trạng thái</th>
+                            <th class="px-4 py-3 border-0 text-muted text-end" style="width: 12%">Tổng tiền (Dự kiến)</th>
+                            <th class="px-4 py-3 border-0 text-muted text-center" style="width: 8%">Xuất HĐ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -191,13 +192,18 @@ HTML;
         echo number_format($invoiceTotal, 0, ',', '.') . ' đ';
         echo <<<HTML
             </td>
+            <td class="px-4 py-3 text-center">
+                <a href="index.php?controller=reservation&action=export_single_bill&id={$id}" class="btn btn-outline-success btn-sm rounded-3 px-2 py-1" style="font-size: 11px; font-weight: bold;" title="Xuất hóa đơn này">
+                    <i class="fa-solid fa-file-excel me-1"></i> Xuất
+                </a>
+            </td>
         </tr>
 HTML;
 
         // Details row
         if (!empty($detailsListHtml) || !empty($notes)) {
             echo '<tr style="background-color: #fafbfd; border-top: none;">';
-            echo '<td colspan="7" class="px-4 py-2 pt-0" style="border-top: none;">';
+            echo '<td colspan="8" class="px-4 py-2 pt-0" style="border-top: none;">';
             echo '<div class="row g-2">';
             
             if (!empty($detailsListHtml)) {
@@ -226,7 +232,7 @@ HTML;
 } else {
     echo <<<HTML
     <tr>
-        <td colspan="7" class="text-center py-5 text-muted">
+        <td colspan="8" class="text-center py-5 text-muted">
             <i class="fa-solid fa-file-invoice fa-3x mb-3 text-light"></i><br>
             Không tìm thấy hóa đơn nào phù hợp.
         </td>

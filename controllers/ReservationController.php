@@ -230,6 +230,130 @@ class ReservationController {
         exit();
     }
 
+    // Xuất hóa đơn của một yêu cầu đặt bàn cụ thể ra file Excel (.xls)
+    public function export_single_bill() {
+        if (!isset($_GET['id'])) {
+            header("Location: index.php?controller=reservation&action=bills");
+            exit();
+        }
+        
+        $id = intval($_GET['id']);
+        $reservation = new Reservation();
+        if (!$reservation->readOne($id)) {
+            $_SESSION['error'] = "Không tìm thấy hóa đơn này!";
+            header("Location: index.php?controller=reservation&action=bills");
+            exit();
+        }
+
+        $locations = [
+            1 => '18 Trần Kim Xuyến',
+            2 => '75A Trần Hưng Đạo',
+            3 => 'Tháp C Golden Palace'
+        ];
+
+        $prices_map = $this->getDishPricesMap();
+
+        // Cấu hình header để tải file Excel
+        header("Content-Type: application/vnd.ms-excel; charset=utf-8");
+        header("Content-Disposition: attachment; filename=Hoa_don_RES_" . $id . "_" . date('Ymd_His') . ".xls");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        
+        // Output UTF-8 BOM để hiển thị đúng dấu tiếng Việt trong Excel
+        echo "\xEF\xBB\xBF";
+        
+        $location = $locations[$reservation->location_id] ?? 'Không xác định';
+        $date = date('d/m/Y', strtotime($reservation->reservation_date));
+        $time = date('H:i', strtotime($reservation->reservation_time));
+        $created_at = date('d/m/Y H:i:s', strtotime($reservation->created_at));
+
+        $statusText = '';
+        switch($reservation->status) {
+            case 'pending': $statusText = 'Chờ xác nhận'; break;
+            case 'confirmed': $statusText = 'Đã xác nhận'; break;
+            case 'completed': $statusText = 'Đã hoàn thành'; break;
+            case 'cancelled': $statusText = 'Đã hủy'; break;
+        }
+
+        echo '<table border="1" style="font-family: Arial, sans-serif; border-collapse: collapse; width: 100%;">';
+        echo '<thead>';
+        // Restaurant Brand Header
+        echo '<tr style="height: 30px;"><th colspan="5" style="text-align: center; font-size: 16px; font-weight: bold; background-color: #0c4a6e; color: #ffffff; border: 1px solid #0c4a6e;">NHÀ HÀNG HẢI SẢN HAISAN</th></tr>';
+        echo '<tr style="height: 25px;"><th colspan="5" style="text-align: center; font-style: italic; font-size: 11px; color: #555555; background-color: #f8fafc;">Địa chỉ: ' . htmlspecialchars($location) . '</th></tr>';
+        echo '<tr style="height: 35px;"><th colspan="5" style="text-align: center; font-size: 18px; font-weight: bold; color: #1e3a8a;">HÓA ĐƠN ĐẶT BÀN CHI TIẾT</th></tr>';
+        
+        // Metadata Table
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Mã hóa đơn:</td><td colspan="3">#RES-' . $reservation->id . '</td></tr>';
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Tên khách hàng:</td><td colspan="3">' . htmlspecialchars($reservation->customer_name) . '</td></tr>';
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Số điện thoại:</td><td colspan="3" style="vnd.ms-excel.numberformat:@">' . htmlspecialchars($reservation->phone) . '</td></tr>';
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Thời gian nhận bàn:</td><td colspan="3">' . $date . ' lúc ' . $time . '</td></tr>';
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Trạng thái đặt bàn:</td><td colspan="3" style="font-weight: bold; color: #b45309;">' . $statusText . '</td></tr>';
+        echo '<tr style="height: 25px;"><td colspan="2" style="font-weight: bold; background-color: #f1f5f9;">Thời gian tạo:</td><td colspan="3">' . $created_at . '</td></tr>';
+        if (!empty($reservation->notes)) {
+            echo '<tr style="height: 30px;"><td colspan="2" style="font-weight: bold; vertical-align: top; background-color: #f1f5f9;">Ghi chú đặt bàn:</td><td colspan="3" style="font-style: italic; color: #475569;">' . htmlspecialchars($reservation->notes) . '</td></tr>';
+        }
+        echo '<tr style="height: 20px;"><td colspan="5" style="border-left: none; border-right: none; background-color: #f8fafc;"></td></tr>';
+
+        // Order Items Table Headers
+        echo '<tr style="background-color: #0c4a6e; color: #ffffff; font-weight: bold; text-align: center; height: 30px;">';
+        echo '<th style="width: 10%;">STT</th>';
+        echo '<th style="width: 50%;">Tên món ăn đặt trước</th>';
+        echo '<th style="width: 15%;">Số lượng</th>';
+        echo '<th style="width: 12%;">Đơn giá</th>';
+        echo '<th style="width: 13%;">Thành tiền</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+
+        $pre_order = $reservation->pre_order;
+        $total = 0;
+        $stt = 1;
+
+        if (!empty($pre_order)) {
+            $dishes = explode(',', $pre_order);
+            foreach ($dishes as $dish) {
+                $dish = trim($dish);
+                if (empty($dish)) continue;
+                $price = $prices_map[$dish] ?? 0;
+                $total += $price;
+
+                echo '<tr style="height: 25px;">';
+                echo '<td style="text-align: center;">' . $stt++ . '</td>';
+                echo '<td>' . htmlspecialchars($dish) . '</td>';
+                echo '<td style="text-align: center;">1</td>';
+                echo '<td style="text-align: right;">' . number_format($price, 0, ',', '.') . ' đ</td>';
+                echo '<td style="text-align: right; font-weight: bold;">' . number_format($price, 0, ',', '.') . ' đ</td>';
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr style="height: 30px;"><td colspan="5" style="text-align: center; font-style: italic; color: #94a3b8;">Không có món ăn nào được đặt trước.</td></tr>';
+        }
+
+        // Total Amount Row
+        echo '<tr style="height: 30px; background-color: #f1f5f9; font-weight: bold;">';
+        echo '<td colspan="4" style="text-align: right; font-size: 13px;">TỔNG THANH TOÁN (TẠM TÍNH):</td>';
+        echo '<td style="text-align: right; color: #dc2626; font-size: 13px;">' . number_format($total, 0, ',', '.') . ' đ</td>';
+        echo '</tr>';
+        
+        echo '</tbody>';
+        echo '</table>';
+        
+        // Add printable signature/notes at bottom
+        echo '<br><br>';
+        echo '<table border="0" style="width: 100%; border: none;">';
+        echo '<tr style="border: none;">';
+        echo '<td colspan="2" style="text-align: center; border: none; font-weight: bold; width: 50%;">Khách hàng</td>';
+        echo '<td colspan="3" style="text-align: center; border: none; font-weight: bold; width: 50%;">Người lập hóa đơn</td>';
+        echo '</tr>';
+        echo '<tr style="border: none;">';
+        echo '<td colspan="2" style="text-align: center; border: none; font-size: 11px; color: #64748b;">(Ký và ghi rõ họ tên)</td>';
+        echo '<td colspan="3" style="text-align: center; border: none; font-size: 11px; color: #64748b;">(Ký và ghi rõ họ tên)</td>';
+        echo '</tr>';
+        echo '</table>';
+        
+        exit();
+    }
+
     // Lấy bảng ánh xạ giá món ăn từ cơ sở dữ liệu và fallback
     private function getDishPricesMap() {
         $db = (new Database())->getConnection();
